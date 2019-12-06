@@ -7,7 +7,7 @@ import slick.model.Table
 case class AppUser(id: Option[Long], creationTime: Option[Long], firstname: String, lastname: String, username: String, password: String, admin: Boolean)
 
 class AppUsers(tag: Tag) extends Table[(Long, Long, String, String, String, String, Boolean)](tag, "app_users") {
-  val userSession = TableQuery[UserSessions]
+  //val userSession = TableQuery[UserSessions]
 
   def id = column[Long]("id", O.PrimaryKey, AutoInc)
   def creationTime = column[Long]("creation_time")
@@ -16,10 +16,22 @@ class AppUsers(tag: Tag) extends Table[(Long, Long, String, String, String, Stri
   def username = column[String]("user_name")
   def password = column[String]("password")
   def admin = column[Boolean]("admin")
-  def session = foreignKey("user_id", deptId, departments)(_.id)
+  //def session = foreignKey("user_id", deptId, departments)(_.id)
 }
 
 class JoinTable(tag: Tag) extends Table[(Long, Long)](tag, "appuser_sessions"){
   def userId = column[Long]("user_id")
   def sessionId = column[Long]("session_id")
+}
+
+case class UserSession(id: Option[Long], createTime: Long, expirationTime: Long, token: String, page: String, stompId: String, ipAddress: String)
+
+class UserSessions(tag: Tag) extends Table[(Long, Long, String, String, String, String, Boolean)](tag, "app_users") {
+  def id = column[Long]("id", O.PrimaryKey, AutoInc)
+  def createTime = column[Long]("start_time")
+  def expirationTime = column[Long]("expiration_time")
+  def token = column[String]("token")
+  def page = column[String]("page")
+  def stompId = column[String]("stomp_id")
+  def ipAddress = column[String]("ip_address")
 }
