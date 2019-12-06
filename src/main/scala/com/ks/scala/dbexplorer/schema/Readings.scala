@@ -13,5 +13,6 @@ class Readings(tag: Tag) extends Table[(Long, Long, Int, Int, String)](tag, "rea
   def temperature = column[Int]("temperature")
   def humidity = column[Int]("humidity")
   def roomname = column[String]("room_name")
+  def * = (id.?, readingTime, temperature, humidity, roomname) <> (Reading.tupled)
 
 }

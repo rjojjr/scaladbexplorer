@@ -17,16 +17,24 @@ class AppUsers(tag: Tag) extends Table[(Long, Long, String, String, String, Stri
   def password = column[String]("password")
   def admin = column[Boolean]("admin")
   //def session = foreignKey("user_id", deptId, departments)(_.id)
+  def * = (id.?, creationTime, firstname, lastname, username, password, admin) <> (AppUser.tupled)
+
 }
 
+case class Join(userId: Long, sessionId: Long)
+
 class JoinTable(tag: Tag) extends Table[(Long, Long)](tag, "appuser_sessions"){
+
   def userId = column[Long]("user_id")
   def sessionId = column[Long]("session_id")
+  def * = (userId, sessionId) <> (Join.tupled)
+
 }
 
 case class UserSession(id: Option[Long], createTime: Long, expirationTime: Long, token: String, page: String, stompId: String, ipAddress: String)
 
 class UserSessions(tag: Tag) extends Table[(Long, Long, String, String, String, String, Boolean)](tag, "app_users") {
+
   def id = column[Long]("id", O.PrimaryKey, AutoInc)
   def createTime = column[Long]("start_time")
   def expirationTime = column[Long]("expiration_time")
@@ -34,4 +42,6 @@ class UserSessions(tag: Tag) extends Table[(Long, Long, String, String, String, 
   def page = column[String]("page")
   def stompId = column[String]("stomp_id")
   def ipAddress = column[String]("ip_address")
+  def * = (id.?, createTime, expirationTime, token, page, stompId, ipAddress) <> (UserSession.tupled)
+  
 }
