@@ -1,5 +1,6 @@
 package com.ks.scala.dbexplorer.schema
 
+import com.ks.scala.dbexplorer.dbitems.AppUser
 import slick.dbio.DBIO
 import slick.jdbc.H2Profile.api._
 
@@ -17,4 +18,5 @@ class AppUsersSQL extends DBIOAction[Unit]{
   def deleteAppUser(user: AppUser) = {
     sql"""delete from app_users.u where u.id = ${user.id}"""
   }
+
 }

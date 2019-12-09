@@ -5,5 +5,6 @@ case class AppUser(id: Long, creationTime: Long,
                    lastname: String,
                    username: String,
                    password: String,
-                   admin:Boolean)
+                   admin: Boolean,
+                   session: UserSession)
 object AppUser extends DBItem
