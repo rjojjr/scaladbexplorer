@@ -16,7 +16,11 @@ class AppUsersSQL extends DBIOAction[Unit]{
   }
 
   def deleteAppUser(user: AppUser) = {
-    sql"""delete from app_users.u where u.id = ${user.id}"""
+    sql"""delete from app_users u where u.id = ${user.id}"""
+  }
+
+  def getUserSessionId(user: AppUser) = {
+    sql"""select s.session_id from appuser_sessions s where s.user_id = ${user.id}"""as[(Long)]
   }
 
 }
