@@ -23,4 +23,8 @@ class AppUsersSQL extends DBIOAction[Unit]{
     sql"""select s.session_id from appuser_sessions s where s.user_id = ${user.id}"""as[(Long)]
   }
 
+  def getUserByUsername(userName: String) = {
+    sql"""select * from app_users u where u.user_name = ${userName}"""as[(Long, Long, String, String, String, String, Boolean)]
+  }
+
 }
