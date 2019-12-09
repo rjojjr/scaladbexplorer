@@ -7,4 +7,4 @@ case class UserSession(id: Long,
                        page: String,
                        stompId: String,
                        ipAddress: String)
-object UserSession
+object UserSession extends DBItem
