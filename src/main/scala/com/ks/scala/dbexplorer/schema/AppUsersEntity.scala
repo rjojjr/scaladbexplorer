@@ -42,6 +42,6 @@ class UserSessions(tag: Tag) extends Table[(Long, Long, String, String, String, 
   def page = column[String]("page")
   def stompId = column[String]("stomp_id")
   def ipAddress = column[String]("ip_address")
-  def * = (id.?, createTime, expirationTime, token, page, stompId, ipAddress) <> (UserSession.tupled)
+  def * = (id.?, createTim${user.e, expirationTime, token, page, stompId, ipAddress) <> (UserSession.tupled)
 
 }
