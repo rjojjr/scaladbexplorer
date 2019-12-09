@@ -13,4 +13,8 @@ class AppUsersSQL extends DBIOAction[Unit]{
         insertAppUser(u)
     })
   }
+
+  def deleteAppUser(user: AppUser) = {
+    sql"""delete from app_users.u where u.id = ${user.id}"""
+  }
 }
