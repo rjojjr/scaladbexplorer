@@ -10,7 +10,7 @@ import akka.stream.ActorMaterializer
 import scala.io.StdIn
 
 
-object WebService extends ConfigValues{
+object WebService {
 
   def main(args: Array[String]): Unit ={
 
@@ -18,7 +18,7 @@ object WebService extends ConfigValues{
     implicit val executionContextExecutor = system.dispatcher  // bindingFuture.map requires an implicit ExecutionContext
     implicit val materializer = ActorMaterializer()  // bindAndHandle requires an implicit materializer
 
-    object MainRouter extends LoginRouter with LogoutRouter with SummaryRouter {
+    /*object MainRouter extends LoginRouter with LogoutRouter with SummaryRouter {
       val routes = loginRoute ~ logoutRoute ~ summaryRoute
     }
 
@@ -26,12 +26,10 @@ object WebService extends ConfigValues{
     def routes = handleExceptions(errorHandler) { MainRouter.routes }
     val bindingFuture = Http().bindAndHandle(routes, host, port)
 
-    //Comment last lines out to run ~reStart
+    //Comment last lines out to run ~reStart*/
     println(s"Server online at " + host + ":" + port + "\nPress RETURN to stop...")
     StdIn.readLine() // let it run until user presses return
-    bindingFuture
-      //.flatMap(_.unbind()) // trigger unbinding from the port
-      .onComplete(_ => system.terminate()) // and shutdown when done
+
 
   }
 }
