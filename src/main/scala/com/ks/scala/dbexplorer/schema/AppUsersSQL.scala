@@ -7,7 +7,7 @@ import slick.jdbc.H2Profile.api._
 
 class AppUsersSQL extends DBIOAction[Unit]{
 
-  implicit val userConverter = GetResult[AppUser](r => AppUser(r.<<, r.<<, r.<<, r.<<, r.<<, r.<<, r.<<))
+
 
   def insertAppUser(user: AppUser): DBIO[Int] =
     // Insert some suppliers
@@ -28,10 +28,8 @@ class AppUsersSQL extends DBIOAction[Unit]{
   }
 
   def getUserByUsername(userName: String) = {
-
     sql"""select u.user_id, u.creation_time, u.first_name, u.last_name, u.username, u.password, u.admin from app_users u where u.user_name = ${userName}""".as[AppUser]
-
-    sql"""select u.user_id, u.creation_time, u.first_name, u.last_name, u.username, u.password, u.admin from app_users u where u.user_name = ${userName}""".as[AppUser]
+    implicit val userConverter = GetResult[AppUser](r => AppUser(r.<<, r.<<, r.<<, r.<<, r.<<, r.<<, r.<<))
   }
 
   def getUserByUsernameAndPassword(userName: String, password: String) = {
