@@ -5,9 +5,8 @@ import com.ks.scala.dbexplorer.schema.AppUsersSQL
 
 object TestDB {
 
-  def create() {
+  def create(user: AppUser) {
     val time = System.currentTimeMillis()
-    val user = AppUser(1, time, "test", "user", "testuser1", "SomePW55#", false)
     val sql = new AppUsersSQL()
     sql insertAppUser (user)
     println("User " += user.username += " inserted at " + time)
@@ -19,6 +18,7 @@ object TestDB {
     val sqluser = sql getUserByUsername ("testuser1")
     val appUser: AppUser = sqluser.asInstanceOf[AppUser]
     println("User " += appUser.username += " found at " + time)
+    appUser
   }
 
 }
