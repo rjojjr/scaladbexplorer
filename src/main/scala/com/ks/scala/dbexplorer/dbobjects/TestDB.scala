@@ -1,7 +1,7 @@
 package com.ks.scala.dbexplorer.dbobjects
 
 import com.ks.scala.dbexplorer.dbitems.AppUser
-import com.ks.scala.dbexplorer.schema.AppUsersSQL
+import com.ks.scala.dbexplorer.schema.AppUsersSchema
 import scala.concurrent.{Await, ExecutionContext}
 import scala.concurrent.duration._
 
@@ -9,26 +9,53 @@ object TestDB {
 
   def create(user: AppUser) = {
     val time = System.currentTimeMillis()
-    val sql = new AppUsersSQL()
+    val sql = new AppUsersSchema()
     sql insertAppUser user
-    println("User " + user.username + " inserted at " + time)
   }
 
-  def find() = {
+  def create(users: Seq[AppUser]) = {
     val time = System.currentTimeMillis()
-    val sql = new AppUsersSQL()
-    val sqluser = sql getUserByUsername "testuser1"
+    val sql = new AppUsersSchema()
+    sql insertAppUsers users
+  }
+
+  def delete(appUser: AppUser) = {
+    val sql = new AppUsersSchema()
+    sql deleteAppUser(appUser)
+  }
+
+  def delete(appUsers: Seq[AppUser]) = {
+    val sql = new AppUsersSchema()
+    sql deleteAppUsers(appUsers)
+  }
+
+  def findByUsername(userName: String) = {
+    val time = System.currentTimeMillis()
+    val sql = new AppUsersSchema()
+    val sqluser = sql getUserByUsername userName
     val vector = sqluser
-    var appUser: AppUser = vector(0)
-    println("User " + appUser.username + " found at " + time)
-    appUser
+    if(vector.length == 0){
+      var appUser: AppUser = new AppUser(0, 0, null, null, null, null, false);
+      println("User " + userName + " not found at " + time)
+      appUser
+    } else {
+      var appUser: AppUser = vector(0)
+      appUser
+    }
   }
 
-  def main(args: Array[String]): Unit ={
+  def findByUsernameAndPassword(userName: String, password: String) = {
     val time = System.currentTimeMillis()
-    val user = AppUser(1, time, "test", "user", "testuser1", "SomePW55#", false)
-    create(user)
-    find()
+    val sql = new AppUsersSchema()
+    val sqluser = sql getUserByUsernameAndPassword (userName, password)
+    val vector = sqluser
+    if(vector.length == 0){
+      var appUser: AppUser = new AppUser(0, 0, null, null, null, null, false);
+      appUser
+    } else {
+      var appUser: AppUser = vector(0)
+      appUser
+    }
   }
 
 }
