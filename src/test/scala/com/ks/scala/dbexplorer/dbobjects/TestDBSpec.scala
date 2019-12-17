@@ -40,28 +40,28 @@ class TestDBSpec extends WordSpecLike with Matchers {
 
     def test5(appUsers: Seq[AppUser]) = {
       var found = true;
-      val users: Seq[AppUser] = appUsers.filter(_.id > 0)
+      val users: Seq[AppUser] = appUsers.filter(_.id != 0)
       create (users)
       users.foreach(u => {
-        if (!u.equals(findByUsernameAndPassword (appUsers(0).username, appUsers(0).password))){
+        if (!u.equals(findByUsernameAndPassword (u.username, u.password))){
           found = false
         }
         delete(u)
       })
-      found should be true
+      found should be (true)
     }
 
-    def test5(appUsers: Seq[AppUser]) = {
-      var found = true;
-      val users: Seq[AppUser] = appUsers.filter(_.id > 0)
+    def test6(appUsers: Seq[AppUser]) = {
+      var found = false;
+      val users: Seq[AppUser] = appUsers.filter(_.id != 0)
       create (users)
       delete(users)
       users.foreach(u => {
-        if (!u.equals(findByUsernameAndPassword (appUsers(0).username, appUsers(0).password))){
-          found = false
+        if (u.equals(findByUsernameAndPassword (u.username, u.password))){
+          found = true
         }
       })
-      found should be true
+      found should be (false)
     }
 
     "find inserted user by username" in test1(users(0))
@@ -72,8 +72,8 @@ class TestDBSpec extends WordSpecLike with Matchers {
 
     "not find deleted user by username and password" in test4(users)
 
-    "not find deleted user by username and password" in test4(users)
-
     "find inserted users by username and password" in test5(users)
+
+    "not find deleted users by username and password" in test6(users)
   }
 }
