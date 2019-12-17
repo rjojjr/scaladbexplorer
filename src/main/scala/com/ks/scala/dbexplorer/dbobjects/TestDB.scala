@@ -14,10 +14,26 @@ object TestDB {
     println("User " + user.username + " inserted at " + time)
   }
 
-  def find(userName: String) = {
+  def findByUsername(userName: String) = {
     val time = System.currentTimeMillis()
     val sql = new AppUsersSQL()
     val sqluser = sql getUserByUsername userName
+    val vector = sqluser
+    if(vector.length == 0){
+      var appUser: AppUser = new AppUser(0, 0, null, null, null, null, false);
+      println("User " + userName + " not found at " + time)
+      appUser
+    } else {
+      var appUser: AppUser = vector(0)
+      println("User " + appUser.username + " found at " + time)
+      appUser
+    }
+  }
+
+  def findByUsernameAndPassword(userName: String, password: String) = {
+    val time = System.currentTimeMillis()
+    val sql = new AppUsersSQL()
+    val sqluser = sql getUserByUsernameAndPassword (userName, password)
     val vector = sqluser
     if(vector.length == 0){
       var appUser: AppUser = new AppUser(0, 0, null, null, null, null, false);
@@ -34,13 +50,5 @@ object TestDB {
     val sql = new AppUsersSQL()
     sql deleteAppUser(appUser)
   }
-
-  /*def main(args: Array[String]): Unit ={
-    val time = System.currentTimeMillis()
-    val user = AppUser(1, time, "test", "user", "testuser1", "SomePW55#", false)
-    create(user)
-    find(user.username)
-    delete(user)
-  }*/
 
 }

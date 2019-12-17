@@ -52,7 +52,7 @@ class AppUsersSQL {
 
   def getUserByUsernameAndPassword(userName: String, password: String) = {
     val rawSQL =
-      sql"""select u.id, u.creation_time, u.first_name, u.last_name, u.user_name, u.password, u.admin from app_users u where u.user_name = ${userName} and u.password = $password}"""
+      sql"""select u.id, u.creation_time, u.first_name, u.last_name, u.user_name, u.password, u.admin from app_users u where u.user_name = ${userName} AND u.password = ${password};"""
         .as[AppUser]
     Await.result(db.run(rawSQL), 5.seconds)
   }
