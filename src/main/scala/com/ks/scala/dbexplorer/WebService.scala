@@ -9,10 +9,9 @@ import akka.stream.ActorMaterializer
 
 import scala.io.StdIn
 
-
 object WebService {
 
-  def main(args: Array[String]): Unit ={
+  /*def main(args: Array[String]): Unit ={
 
     implicit val system: ActorSystem = ActorSystem("actor-system")  // ActorMaterializer requires an implicit ActorSystem
     implicit val executionContextExecutor = system.dispatcher  // bindingFuture.map requires an implicit ExecutionContext
@@ -27,9 +26,9 @@ object WebService {
     val bindingFuture = Http().bindAndHandle(routes, host, port)
 
     //Comment last lines out to run ~reStart*/
-    println(s"Server online at " + host + ":" + port + "\nPress RETURN to stop...")
+    //println(s"Server online at " + host + ":" + port + "\nPress RETURN to stop...")
     StdIn.readLine() // let it run until user presses return
 
 
-  }
+  }*/
 }

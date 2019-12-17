@@ -6,10 +6,14 @@ import slick.model.Table
 
 //case class AppUser(id: Option[Long], creationTime: Option[Long], firstname: String, lastname: String, username: String, password: String, admin: Boolean)
 
-class AppUsers(tag: Tag) extends Table[(Long, Long, String, String, String, String, Boolean)](tag, "app_users") {
+class AppUsers(tag: Tag) {
+  /*extends Table[(Long, Long, String, String, String, String, Boolean)](
+      tag,
+      "app_users"
+    ) {*/
   //val userSession = TableQuery[UserSessions]
 
-  def id = column[Long]("id", O.PrimaryKey, AutoInc)
+  /*def id = column[Long]("id", O.PrimaryKey, AutoInc)
   def creationTime = column[Long]("creation_time")
   def firstname = column[String]("first_name")
   def lastname = column[String]("last_name")
@@ -17,12 +21,13 @@ class AppUsers(tag: Tag) extends Table[(Long, Long, String, String, String, Stri
   def password = column[String]("password")
   def admin = column[Boolean]("admin")
   //def session = foreignKey("user_id", deptId, departments)(_.id)
-  def * = (id.?, creationTime, firstname, lastname, username, password, admin) <> (AppUser.tupled)
+  def * = (id.?, creationTime, firstname, lastname, username, password, admin) <> (AppUser.tupled)*/
 
 }
 
 //case class Join(userId: Long, sessionId: Long)
 
+/*
 class JoinTable(tag: Tag) extends Table[(Long, Long)](tag, "appuser_sessions"){
 
   def userId = column[Long]("user_id")
@@ -43,5 +48,5 @@ class UserSessions(tag: Tag) extends Table[(Long, Long, String, String, String, 
   def stompId = column[String]("stomp_id")
   def ipAddress = column[String]("ip_address")
   def * = (id.?, createTim${user.e, expirationTime, token, page, stompId, ipAddress) <> (UserSession.tupled)
-
-}
+  }
+}*/
