@@ -1,13 +1,12 @@
 package com.ks.scala.dbexplorer.schema
 
-import akka.actor.ActorSystem
-import com.ks.scala.dbexplorer.dbitems.AppUser
+import com.ks.scala.dbexplorer.dbitems.{AppUser, UserSession}
 import com.typesafe.config.ConfigFactory
 import slick.jdbc.GetResult
 import slick.jdbc.MySQLProfile.api._
 
 import scala.concurrent.duration._
-import scala.concurrent.{Await, ExecutionContext}
+import scala.concurrent.Await
 
 class AppUsersSchema {
 
@@ -15,7 +14,7 @@ class AppUsersSchema {
   val db = Database.forConfig("mysql", config)
 
   implicit val userConverter =
-    GetResult[AppUser](r => AppUser(r.<<, r.<<, r.<<, r.<<, r.<<, r.<<, r.<<))
+    GetResult[UserSession](r => AppUser(r.<<, r.<<, r.<<, r.<<, r.<<, r.<<, r.<<))
 
   def insertAppUser(user: AppUser) = {
     val rawSQL =
@@ -39,6 +38,12 @@ class AppUsersSchema {
     users.foreach(u => {
       deleteAppUser(u)
     })
+  }
+
+  def getNextAppUserId() = {
+    val rawSQL =
+      sql"""select ident_current('app_users')""".as[Long]
+    Await.result(db.run(rawSQL), 5.seconds)
   }
 
   def getUserSessionId(user: AppUser) = {
