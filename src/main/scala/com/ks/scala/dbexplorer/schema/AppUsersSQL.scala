@@ -20,7 +20,7 @@ class AppUsersSQL {
   def insertAppUser(user: AppUser) = {
     val rawSQL =
       sqlu"insert into app_users (id, creation_time, first_name, last_name, user_name, password, admin) values(${user.id}, ${user.creationTime}, ${user.firstname}, ${user.lastname}, ${user.username}, ${user.password}, ${user.admin})"
-    db.run(rawSQL)
+    Await.result(db.run(rawSQL), 5.seconds)
   }
 
   def insertAppUsers(users: Seq[AppUser]) = {
@@ -32,7 +32,7 @@ class AppUsersSQL {
   def deleteAppUser(user: AppUser) = {
     val rawSQL =
       sqlu"delete from app_users u where u.id = ${user.id}"
-    db.run(rawSQL)
+    Await.result(db.run(rawSQL), 5.seconds)
   }
 
   def getUserSessionId(user: AppUser) = {
@@ -50,7 +50,7 @@ class AppUsersSQL {
 
   }
 
-  def getUserByUsernameAndPassword(userName: String, password: String)(implicit ec: ExecutionContext, ac: ActorSystem) = {
+  def getUserByUsernameAndPassword(userName: String, password: String) = {
     val rawSQL =
       sql"""select u.id, u.creation_time, u.first_name, u.last_name, u.user_name, u.password, u.admin from app_users u where u.user_name = ${userName} and u.password = $password}"""
         .as[AppUser]
