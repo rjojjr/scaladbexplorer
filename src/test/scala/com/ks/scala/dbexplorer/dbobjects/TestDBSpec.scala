@@ -1,7 +1,7 @@
 package com.ks.scala.dbexplorer.dbobjects
 
 import com.ks.scala.dbexplorer.dbitems.AppUser
-import com.ks.scala.dbexplorer.schema.AppUsersSQL
+import com.ks.scala.dbexplorer.schema.AppUsersSchema
 import org.scalatest.{FlatSpec, Matchers, WordSpecLike}
 
 import com.ks.scala.dbexplorer.dbobjects.TestDB._
@@ -39,7 +39,7 @@ class TestDBSpec extends WordSpecLike with Matchers {
     }
 
     def test5(appUsers: Seq[AppUser]) = {
-      create (appUsers(0))
+      create (appUsers)
       delete (appUsers(0))
       val result = (findByUsernameAndPassword (appUsers(0).username, appUsers(0).password))
       result should equal(appUsers(2))

@@ -9,7 +9,7 @@ import slick.jdbc.MySQLProfile.api._
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext}
 
-class AppUsersSQL {
+class AppUsersSchema {
 
   val config = ConfigFactory.load()
   val db = Database.forConfig("mysql", config)
@@ -33,6 +33,12 @@ class AppUsersSQL {
     val rawSQL =
       sqlu"delete from app_users u where u.id = ${user.id}"
     Await.result(db.run(rawSQL), 5.seconds)
+  }
+
+  def deleteAppUsers(users: Seq[AppUser]) = {
+    users.foreach(u => {
+      deleteAppUser(u)
+    })
   }
 
   def getUserSessionId(user: AppUser) = {
