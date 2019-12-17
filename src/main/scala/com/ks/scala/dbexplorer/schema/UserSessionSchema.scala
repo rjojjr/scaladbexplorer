@@ -17,8 +17,12 @@ class UserSessionSchema {
     GetResult[UserSession](r => UserSession(r.<<, r.<<, r.<<, r.<<, r.<<, r.<<, r.<<))
 
   def insertUserSession(session: UserSession, userId: String) = {
+    val joinId = getNextJoinId()(0)
+    val rawJoinSQL =
+      sqlu"insert into appuser_sessions (user_id, session_id, id) values(${userId}, ${session.id}, ${joinId})"
+    Await.result(db.run(rawJoinSQL), 5.seconds)
     val rawSQL =
-      sqlu"insert into appuser_sessions (user_id, session_id, first_name, last_name, user_name, password, admin) values(${user.id}, ${user.creationTime}, ${user.firstname}, ${user.lastname}, ${user.username}, ${user.password}, ${user.admin})"
+      sqlu"insert into user_sessions (id, start_time, expiration_time, token, page, stomp_id, ip_address) values(${session.id}, ${session.createTime}, ${session.expirationTime}, ${session.token}, ${session.page}, ${session.stompId}, ${session.ipAddress})"
     Await.result(db.run(rawSQL), 5.seconds)
   }
 
