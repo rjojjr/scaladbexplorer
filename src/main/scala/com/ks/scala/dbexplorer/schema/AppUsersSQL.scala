@@ -23,6 +23,7 @@ class AppUsersSQL {
       sqlu"insert into app_users (id, creation_time, first_name, last_name, user_name, password, admin) values(${user.id}, ${user.creationTime}, ${user.firstname}, ${user.lastname}, ${user.username}, ${user.password}, ${user.admin})"
     Await.result(db.run(rawSQL), 20.seconds)
   }
+
   def insertAppUsers(users: Seq[AppUser]) = {
     users.foreach(u => {
       insertAppUser(u)
@@ -34,8 +35,8 @@ class AppUsersSQL {
   }
 
   def getUserSessionId(user: AppUser) = {
-    /* sql"""select s.session_id from appuser_sessions s where s.user_id = ${user.id}"""
-      .as[(Long)]*/
+    sql"""select s.session_id from appuser_sessions s where s.user_id = ${user.id}"""
+      .as[(Long)]
   }
 
   def getUserByUsername(userName: String) = {
