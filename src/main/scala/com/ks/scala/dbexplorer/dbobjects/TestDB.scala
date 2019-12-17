@@ -11,7 +11,12 @@ object TestDB {
     val time = System.currentTimeMillis()
     val sql = new AppUsersSQL()
     sql insertAppUser user
-    println("User " + user.username + " inserted at " + time)
+  }
+
+  def create(users: Seq[AppUser]) = {
+    val time = System.currentTimeMillis()
+    val sql = new AppUsersSQL()
+    sql insertAppUsers users
   }
 
   def findByUsername(userName: String) = {
@@ -25,7 +30,6 @@ object TestDB {
       appUser
     } else {
       var appUser: AppUser = vector(0)
-      println("User " + appUser.username + " found at " + time)
       appUser
     }
   }
@@ -37,11 +41,9 @@ object TestDB {
     val vector = sqluser
     if(vector.length == 0){
       var appUser: AppUser = new AppUser(0, 0, null, null, null, null, false);
-      println("User " + userName + " not found at " + time)
       appUser
     } else {
       var appUser: AppUser = vector(0)
-      println("User " + appUser.username + " found at " + time)
       appUser
     }
   }
