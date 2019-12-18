@@ -5,7 +5,7 @@ import com.ks.scala.dbexplorer.schema.AppUsersSchema
 import scala.concurrent.{Await, ExecutionContext}
 import scala.concurrent.duration._
 
-object TestDB {
+object TestAppUserDB {
 
   def create(user: AppUser) = {
     val time = System.currentTimeMillis()
@@ -21,12 +21,12 @@ object TestDB {
 
   def delete(appUser: AppUser) = {
     val sql = new AppUsersSchema()
-    sql deleteAppUser(appUser)
+    sql deleteAppUser (appUser)
   }
 
   def delete(appUsers: Seq[AppUser]) = {
     val sql = new AppUsersSchema()
-    sql deleteAppUsers(appUsers)
+    sql deleteAppUsers (appUsers)
   }
 
   def findByUsername(userName: String) = {
@@ -34,7 +34,7 @@ object TestDB {
     val sql = new AppUsersSchema()
     val sqluser = sql getUserByUsername userName
     val vector = sqluser
-    if(vector.length == 0){
+    if (vector.length == 0) {
       var appUser: AppUser = new AppUser(0, 0, null, null, null, null, false);
       println("User " + userName + " not found at " + time)
       appUser
@@ -49,7 +49,7 @@ object TestDB {
     val sql = new AppUsersSchema()
     val sqluser = sql getUserByUsernameAndPassword (userName, password)
     val vector = sqluser
-    if(vector.length == 0){
+    if (vector.length == 0) {
       var appUser: AppUser = new AppUser(0, 0, null, null, null, null, false);
       appUser
     } else {

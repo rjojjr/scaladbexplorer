@@ -14,7 +14,9 @@ class UserSessionSchema {
   val db = Database.forConfig("mysql", config)
 
   implicit val sessionConverter =
-    GetResult[UserSession](r => UserSession(r.<<, r.<<, r.<<, r.<<, r.<<, r.<<, r.<<))
+    GetResult[UserSession](
+      r => UserSession(r.<<, r.<<, r.<<, r.<<, r.<<, r.<<, r.<<)
+    )
 
   def insertUserSession(session: UserSession, userId: String) = {
     val joinId = getNextJoinId()(0)
@@ -24,6 +26,21 @@ class UserSessionSchema {
     val rawSQL =
       sqlu"insert into user_sessions (id, start_time, expiration_time, token, page, stomp_id, ip_address) values(${session.id}, ${session.createTime}, ${session.expirationTime}, ${session.token}, ${session.page}, ${session.stompId}, ${session.ipAddress})"
     Await.result(db.run(rawSQL), 5.seconds)
+  }
+
+  def updateUserSession(session: UserSession, userId: String): Unit = {
+    val sessionId: Long = getSessionId(userId)(0)
+    val rawSQL =
+      sqlu"update user_sessions set start_time = ${session.createTime}, expiration_time = ${session .expirationTime}, token = ${session .token},
+           page = ${session .page}, stomp_id = ${session.stompId}, ip_address = ${session .ipAddress} where id = ${sessionId}"
+    Await.result(db.run(rawSQL), 5.seconds)
+  }
+
+  def getSessionId(userId: String) = {
+    val rawJoinSQL =
+      sql"""select session_id from appuser_sessions where user_id = ${userId}"""
+        .as[Long]
+    Await.result(db.run(rawJoinSQL), 5.seconds)
   }
 
   def getNextSessionId() = {
