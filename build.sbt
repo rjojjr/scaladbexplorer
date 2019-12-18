@@ -6,6 +6,8 @@ scalaVersion := "2.13.1"
 
 scalacOptions += "-deprecation"
 
+unmanagedBase := baseDirectory.value / "libs"
+
 libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.1.10"
 libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.6.0"
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
@@ -19,6 +21,5 @@ libraryDependencies += "com.typesafe.slick" %% "slick" % "3.3.2"
 libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.15"
 libraryDependencies ++= Seq(
   "org.scalactic" %% "scalactic" % "3.0.8",
-  "org.scalatest" %% "scalatest" % "3.0.8" % "test",
-  "com.kirchnersolutions" % "utilities" % "1.1.00"
+  "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 )
