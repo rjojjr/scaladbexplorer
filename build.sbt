@@ -19,5 +19,6 @@ libraryDependencies += "com.typesafe.slick" %% "slick" % "3.3.2"
 libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.15"
 libraryDependencies ++= Seq(
   "org.scalactic" %% "scalactic" % "3.0.8",
-  "org.scalatest" %% "scalatest" % "3.0.8" % "test"
+  "org.scalatest" %% "scalatest" % "3.0.8" % "test",
+  "com.kirchnersolutions" % "utilities" % "1.1.00"
 )

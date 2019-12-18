@@ -2,8 +2,8 @@ package com.ks.scala.dbexplorer.dbobjects
 
 import com.ks.scala.dbexplorer.dbitems.AppUser
 import com.ks.scala.dbexplorer.schema.AppUsersSchema
-import scala.concurrent.{Await, ExecutionContext}
-import scala.concurrent.duration._
+
+import com.kirchnersolutions.utilities
 
 object TestAppUserDB {
 
