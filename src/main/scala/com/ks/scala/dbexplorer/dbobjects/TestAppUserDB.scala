@@ -29,7 +29,7 @@ object TestAppUserDB {
     sql deleteAppUsers (appUsers)
   }
 
-  def findByUsername(userName: String) = {
+  def findByUsername(userName: String): AppUser = {
     val time = System.currentTimeMillis()
     val sql = new AppUsersSchema()
     val sqluser = sql getUserByUsername userName

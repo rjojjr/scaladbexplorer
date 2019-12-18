@@ -31,8 +31,7 @@ class UserSessionSchema {
   def updateUserSession(session: UserSession, userId: String): Unit = {
     val sessionId: Long = getSessionId(userId)(0)
     val rawSQL =
-      sqlu"update user_sessions set start_time = ${session.createTime}, expiration_time = ${session .expirationTime}, token = ${session .token},
-           page = ${session .page}, stomp_id = ${session.stompId}, ip_address = ${session .ipAddress} where id = ${sessionId}"
+      sqlu"update user_sessions set start_time = ${session.createTime}, expiration_time = ${session.expirationTime}, token = ${session.token}, page = ${session.page}, stomp_id = ${session.stompId}, ip_address = ${session.ipAddress} where id = ${sessionId}"
     Await.result(db.run(rawSQL), 5.seconds)
   }
 

@@ -4,8 +4,8 @@ import com.typesafe.config.ConfigFactory
 
 trait ConfigValues {
   implicit val config = ConfigFactory.load()
-  val temp_endpoint = config.getString("server.endpoint.get-temp")
-  val start_pitemp_endpoint = config.getString("server.endpoint.start-pitemp")
-  val run_command_endpoint = config.getString("server.endpoint.run-command")
-  val reboot_endpoint = config.getString("server.endpoint.reboot")
+  val search_user_endpoint = config.getString("endpoints.search_user_records")
+  val token = config.getString("server.token")
+  val host = config.getString("server.host")
+  val port = config.getInt("server.port")
 }

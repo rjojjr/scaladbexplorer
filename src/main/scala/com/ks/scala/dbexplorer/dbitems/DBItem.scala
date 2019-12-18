@@ -1,5 +1,5 @@
 package com.ks.scala.dbexplorer.dbitems
 
-trait DBItem {
+import com.ks.scala.dbexplorer.restobjects.RestObject
 
-}
+trait DBItem extends RestObject {}
