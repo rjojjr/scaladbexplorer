@@ -8,6 +8,9 @@ scalacOptions += "-deprecation"
 
 unmanagedBase := baseDirectory.value / "libs"
 
+libraryDependencies += "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.11"
+libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.1.11"
+libraryDependencies += "com.typesafe.akka" %% "akka-actor-testkit-typed" % "2.6.1" % Test
 libraryDependencies += "com.typesafe.akka" %% "akka-http-testkit" % "10.1.11" % Test
 libraryDependencies += "com.typesafe.akka" %% "akka-testkit" % "2.6.1" % Test
 libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.1.10"
