@@ -79,8 +79,8 @@ class TestAppUserDBSpec extends WordSpecLike with Matchers {
 
     "not find deleted user by username and password" in test4(users)
 
-    "find inserted users by username and password" in test5(users)
+    /*"find inserted users by username and password" in test5(users)
 
-    "not find deleted users by username and password" in test6(users)
+    "not find deleted users by username and password" in test6(users)*/
   }
 }

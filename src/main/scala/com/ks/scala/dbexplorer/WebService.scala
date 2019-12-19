@@ -30,7 +30,9 @@ object WebService extends ConfigValues {
     val bindingFuture = Http().bindAndHandle(routes, host, port)
 
     //Comment last lines out to run ~reStart
-    //println(s"Server online at " + host + ":" + port + "\nPress RETURN to stop...")
+    println(
+      s"Server online at " + host + ":" + port + "\nPress RETURN to stop..."
+    )
     StdIn.readLine() // let it run until user presses return
 
   }

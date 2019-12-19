@@ -14,7 +14,7 @@ class AppUsersSchema {
   val db = Database.forConfig("mysql", config)
 
   implicit val userConverter =
-    GetResult[UserSession](r => AppUser(r.<<, r.<<, r.<<, r.<<, r.<<, r.<<, r.<<))
+    GetResult[AppUser](r => AppUser(r.<<, r.<<, r.<<, r.<<, r.<<, r.<<, r.<<))
 
   def insertAppUser(user: AppUser) = {
     val rawSQL =

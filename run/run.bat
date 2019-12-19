@@ -1,0 +1,1 @@
+java -jar scaladbexplorer-assembly-0.1.00.jar
