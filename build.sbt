@@ -8,6 +8,8 @@ scalacOptions += "-deprecation"
 
 unmanagedBase := baseDirectory.value / "libs"
 
+libraryDependencies += "com.typesafe.akka" %% "akka-http-testkit" % "10.1.11" % Test
+libraryDependencies += "com.typesafe.akka" %% "akka-testkit" % "2.6.1" % Test
 libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.1.10"
 libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.6.0"
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
